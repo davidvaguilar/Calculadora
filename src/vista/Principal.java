@@ -5,7 +5,7 @@
  */
 package vista;
 
-import controlador.ControladorCalculadora;
+import controlador.ControlCalculadora;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -19,7 +19,6 @@ public class Principal extends javax.swing.JFrame {
      * Creates new form Principal
      */
     public Principal() {
-        setLocationRelativeTo(null);
         initComponents();
         this.setVisible(true);
     }

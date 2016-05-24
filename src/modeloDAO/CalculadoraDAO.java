@@ -95,5 +95,16 @@ public class CalculadoraDAO implements InterfazDAO<Calculadora>{
         }
         return calculadoras;
     }
+
+    @Override
+    public boolean actualizar(Object llave) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean eliminar(Calculadora x) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
 }

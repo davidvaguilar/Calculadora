@@ -5,8 +5,12 @@
  */
 package controlador;
 
+import java.util.ArrayList;
 import modelo.Calculadora;
+import modelo.Usuario;
+import modeloDAO.UsuarioDAO;
 import modeloDAO.CalculadoraDAO;
+import vista.Login;
 import vista.Principal;
 
 /**
@@ -19,9 +23,10 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Principal vistaCalculadora=new Principal();
-        CalculadoraDAO modeloCalculadora= new CalculadoraDAO();
-        ControladorCalculadora controlCal=new ControladorCalculadora(vistaCalculadora, modeloCalculadora);
+        Login vlogin=new Login();
+        UsuarioDAO mUsuario=new UsuarioDAO();
+        ControlLogin cLogin=new ControlLogin(vlogin, mUsuario);
+     
     }
     
 }

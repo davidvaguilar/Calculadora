@@ -14,6 +14,8 @@ import modelo.Calculadora;
  */
 public interface InterfazDAO <Algo> {
     public boolean ingresar (Algo x);
+    public boolean actualizar (Object llave);
+    public boolean eliminar (Algo x);
     public Algo buscar(Object llave);
-    public ArrayList<Calculadora> listar();
+    public ArrayList<Algo> listar();
 }

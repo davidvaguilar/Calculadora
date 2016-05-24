@@ -20,11 +20,11 @@ import vista.Principal;
  *
  * @author David
  */
-public class ControladorCalculadora implements ActionListener{
+public class ControlCalculadora implements ActionListener{
     private CalculadoraDAO calculadora;
     private Principal jfCalculadora;
     
-    public ControladorCalculadora(Principal jfCal, CalculadoraDAO cal){
+    public ControlCalculadora(Principal jfCal, CalculadoraDAO cal){
         this.calculadora=cal;
         this.jfCalculadora=jfCal;
         this.jfCalculadora.btnResultado.addActionListener(this);
@@ -76,6 +76,7 @@ public class ControladorCalculadora implements ActionListener{
     }
     
     
+    @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==jfCalculadora.btnResultado){
             Integer primerNumero;
