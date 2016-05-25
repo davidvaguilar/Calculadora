@@ -8,6 +8,7 @@ package controlador;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
 import modeloDAO.CalculadoraDAO;
@@ -20,56 +21,72 @@ import vista.Principal;
  * @author David
  */
 public class ControlLogin implements ActionListener{
-    private Login vistaLogin;
-    private UsuarioDAO modeloUsuario;
+    private Login visLogin;
+    private UsuarioDAO modUsuario;
 
-    public ControlLogin(Login vista, UsuarioDAO modelo) {
-        this.vistaLogin = vista;
-        this.modeloUsuario = modelo;
-        this.vistaLogin.btnIngresar.addActionListener(this);
-        this.vistaLogin.btnCancelar.addActionListener(this);
+    public ControlLogin(Login vLogin, UsuarioDAO mUsuario) {
+        this.visLogin = vLogin;
+        this.modUsuario = mUsuario;
+        this.visLogin.btnIngresar.addActionListener(this);
+        this.visLogin.btnCancelar.addActionListener(this);
         
     }
+    
+    public void limpiar(){
+        visLogin.txtAlias.setText("");
+        visLogin.txtPassword.setText("");
+        visLogin.txtAlias.setBackground(Color.WHITE);
+        visLogin.txtPassword.setBackground(Color.WHITE);
+    }
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==vistaLogin.btnCancelar){
-            this.vistaLogin.dispose();
+        
+        
+        if(e.getSource()==this.visLogin.btnCancelar){
+            this.visLogin.dispose();
         }
-        if(e.getSource()==this.vistaLogin.btnIngresar){
+        
+        
+        if(e.getSource()==this.visLogin.btnIngresar){
             String alias;
             String pass;
             Usuario u;
-            
-            alias = this.vistaLogin.txtAlias.getText();
-            pass = new String(this.vistaLogin.txtPassword.getPassword());
+            boolean bandera=false;
+            ArrayList<Usuario> usuarios=new ArrayList();
+            alias = this.visLogin.txtAlias.getText();
+            pass = new String(this.visLogin.txtPassword.getPassword());
             if(!alias.isEmpty()&&
                     !pass.isEmpty()){
                 u=new Usuario(alias, pass);
-                if(u.equals(modeloUsuario.listar().get(0))){
-                    this.vistaLogin.dispose();
-                    this.modeloUsuario=null;
-                    Principal vCalculadora=new Principal();
-                    CalculadoraDAO mCalculadora= new CalculadoraDAO();
-                    ControlCalculadora controlCal=new ControlCalculadora(vCalculadora, mCalculadora);
-                    
-                    
-                }else{
-                    JOptionPane.showMessageDialog(vistaLogin, "Su usuario o Password no son Correctos");
+                usuarios=modUsuario.listar();
+                for (int i = 0; i < usuarios.size(); i++) {
+                    if(u.equals(usuarios.get(i))){
+                        this.visLogin.dispose();
+                        this.modUsuario=null;
+                        bandera=true;
+                        Principal vCalculadora=new Principal();
+                        CalculadoraDAO mCalculadora= new CalculadoraDAO();
+                        ControlCalculadora controlCal=new ControlCalculadora(vCalculadora, mCalculadora);                    
+                    }
+                }
+                if(!bandera){
+                    JOptionPane.showMessageDialog(this.visLogin, "Su usuario o Password no son Correctos");
                 }
                 
             }else{
                 if(alias.isEmpty()){
-                    vistaLogin.txtAlias.setBackground(Color.red);
+                    visLogin.txtAlias.setBackground(Color.red);
                 }else{
-                    vistaLogin.txtAlias.setBackground(Color.white);
+                    visLogin.txtAlias.setBackground(Color.white);
                 }
                 if(pass.isEmpty()){
-                    vistaLogin.txtPassword.setBackground(Color.red);
+                    visLogin.txtPassword.setBackground(Color.red);
                 }else{
-                    vistaLogin.txtPassword.setBackground(Color.white);
+                    visLogin.txtPassword.setBackground(Color.white);
                 }
-                vistaLogin.lblInformacion.setText("Ingrese valor (es)");
+                visLogin.lblInformacion.setText("Ingrese valor (es)");
             }
             
             

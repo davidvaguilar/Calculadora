@@ -10,7 +10,7 @@ package modelo;
  * @author David
  */
 public class Calculadora{
-    private Integer codigo;
+    private Integer calCodigo;
     private Integer calPriOperando;
     private Integer calSegOperando;
     private String calOperador;
@@ -19,7 +19,7 @@ public class Calculadora{
     }
 
     public Calculadora(Integer codigo) {
-        this.codigo = codigo;
+        this.calCodigo = codigo;
     }
 
     public Calculadora(Integer calPriOperando, Integer calSegOperando, String calOperador) {
@@ -29,7 +29,7 @@ public class Calculadora{
     }
 
     public Calculadora(Integer codigo, Integer calPriOperando, Integer calSegOperando, String calOperador) {
-        this.codigo = codigo;
+        this.calCodigo = codigo;
         this.calPriOperando = calPriOperando;
         this.calSegOperando = calSegOperando;
         this.calOperador = calOperador;
@@ -51,12 +51,12 @@ public class Calculadora{
     }
     
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getCalCodigo() {
+        return calCodigo;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setCalCodigo(Integer codigo) {
+        this.calCodigo = codigo;
     }
 
     public Integer getCalPriOperando() {

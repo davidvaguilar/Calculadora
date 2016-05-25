@@ -26,7 +26,6 @@ public class Main {
         Login vlogin=new Login();
         UsuarioDAO mUsuario=new UsuarioDAO();
         ControlLogin cLogin=new ControlLogin(vlogin, mUsuario);
-     
     }
     
 }

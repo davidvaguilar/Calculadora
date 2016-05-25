@@ -24,24 +24,33 @@ import modelo.Usuario;
  */
 public class UsuarioDAO implements InterfazDAO<Usuario>{
 
-    private static final String URL= "agenda.dat";
-    
-    
+    private static final String URL= "./src/fichero/usuario.csv";
     
     
     @Override
     public boolean ingresar(Usuario x) {
-        File f=null;
+        File f;
         FileWriter fw=null;
         BufferedWriter bw=null;
         try{
             f=new File(this.URL);
-            
-            fw=new FileWriter(f);
-            bw=new BufferedWriter(fw);
-            
-            bw.write(x.getUsuAlias()+"%"+x.getUsuPassword());
-            
+            if(f.exists()){
+                fw=new FileWriter(f,true);
+                
+                bw=new BufferedWriter(fw);
+                bw.newLine();
+                bw.write(x.getUsuAlias());
+                bw.write(";");
+                bw.write(x.getUsuPassword());
+            }else{            
+                fw=new FileWriter(f);
+                bw=new BufferedWriter(fw);
+                bw.write("ALIAS;CONTRASEÑA");
+                bw.newLine();
+                bw.write(x.getUsuAlias());
+                bw.write(";");
+                bw.write(x.getUsuPassword());
+            }            
         }catch(Exception ex){
             ex.printStackTrace();
             return false;
@@ -50,13 +59,20 @@ public class UsuarioDAO implements InterfazDAO<Usuario>{
                 bw.close();
                 fw.close();
             } catch (IOException ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
+                System.out.println("Error al Cerrar al Archivo");
             }
         }
        
         return true;       
     }
     
+    @Override
+    public boolean actualizar(Object llave) {
+              throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+        
+    }
     
 
     @Override
@@ -64,8 +80,38 @@ public class UsuarioDAO implements InterfazDAO<Usuario>{
         File f;
         FileReader fr=null;
         BufferedReader br=null;
-        return null;
-    
+        String linea;
+        String segmento[] = null;
+        Usuario u=null;
+        
+        try{
+            f = new File(this.URL);
+            if(f.exists()){
+                fr = new FileReader(f);
+                br = new BufferedReader(fr);
+                br.readLine();
+                linea = br.readLine();
+                while(linea!=null){
+                    segmento = linea.split(";");
+                    if(segmento[0].equals((String)llave)){
+                        u=new Usuario(segmento[0], segmento[1]);
+                    }
+                    linea = br.readLine();
+                }  
+            }else{
+                JOptionPane.showMessageDialog(null, "El Archivo no Existe");
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try {
+                fr.close();
+                br.close();
+            } catch (IOException ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return u;   
     }
     
     
@@ -75,8 +121,8 @@ public class UsuarioDAO implements InterfazDAO<Usuario>{
         File f;
         FileReader fr=null;
         BufferedReader br=null;
-        String linea="";
-        String partes[] = null;
+        String linea;
+        String segmento[] = null;
         ArrayList<Usuario> usuarios = new ArrayList();
         
         try{
@@ -84,12 +130,12 @@ public class UsuarioDAO implements InterfazDAO<Usuario>{
             if(f.exists()){
                 fr = new FileReader(f);
                 br = new BufferedReader(fr);
-                //linea = br.readLine();
-                //System.out.println(br.readLine());
-                while((linea=br.readLine())!=null){
-                    partes = linea.split("%");
-                    usuarios.add(new Usuario(partes[0], partes[1]));
-            
+                br.readLine();
+                linea = br.readLine();
+                while(linea!=null){
+                    segmento = linea.split(";");
+                    usuarios.add(new Usuario(segmento[0], segmento[1]));
+                    linea = br.readLine();
                 }  
             }else{
                 JOptionPane.showMessageDialog(null, "El Archivo no Existe");
@@ -108,11 +154,7 @@ public class UsuarioDAO implements InterfazDAO<Usuario>{
         return usuarios;        
     }
 
-    @Override
-    public boolean actualizar(Object llave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
-    }
 
     @Override
     public boolean eliminar(Usuario x) {
