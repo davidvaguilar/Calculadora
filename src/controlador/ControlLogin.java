@@ -14,6 +14,7 @@ import modelo.Usuario;
 import modeloDAO.CalculadoraDAO;
 import modeloDAO.UsuarioDAO;
 import vista.Login;
+import vista.Calcular;
 import vista.Principal;
 
 /**
@@ -66,9 +67,11 @@ public class ControlLogin implements ActionListener{
                         this.visLogin.dispose();
                         this.modUsuario=null;
                         bandera=true;
-                        Principal vCalculadora=new Principal();
-                        CalculadoraDAO mCalculadora= new CalculadoraDAO();
-                        ControlCalculadora controlCal=new ControlCalculadora(vCalculadora, mCalculadora);                    
+                        Principal vPrincipal=new Principal();
+                        ControlPrincipal controlPri=new ControlPrincipal(vPrincipal, u);
+
+
+
                     }
                 }
                 if(!bandera){

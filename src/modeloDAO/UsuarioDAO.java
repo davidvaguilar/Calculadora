@@ -68,13 +68,18 @@ public class UsuarioDAO implements InterfazDAO<Usuario>{
     }
     
     @Override
-    public boolean actualizar(Object llave) {
+    public boolean actualizar(Usuario x) {
               throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
    
         
     }
     
 
+    @Override
+    public boolean eliminar(Object llave) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     @Override
     public Usuario buscar(Object llave) {
         File f;
@@ -156,9 +161,5 @@ public class UsuarioDAO implements InterfazDAO<Usuario>{
 
 
 
-    @Override
-    public boolean eliminar(Usuario x) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }

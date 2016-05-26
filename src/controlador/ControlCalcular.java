@@ -14,17 +14,17 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.Calculadora;
 import modeloDAO.CalculadoraDAO;
-import vista.Principal;
+import vista.Calcular;
 
 /**
  *
  * @author David
  */
-public class ControlCalculadora implements ActionListener{
+public class ControlCalcular implements ActionListener{
     private CalculadoraDAO modCalculadora;
-    private Principal visCalculadora;
+    private Calcular visCalculadora;
     
-    public ControlCalculadora(Principal vCalculadora, CalculadoraDAO mCalculadora){
+    public ControlCalcular(Calcular vCalculadora, CalculadoraDAO mCalculadora){
         this.modCalculadora=mCalculadora;
         this.visCalculadora=vCalculadora;
         this.visCalculadora.btnResultado.addActionListener(this);
